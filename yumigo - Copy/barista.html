@@ -1,0 +1,777 @@
+<html>
+<head>
+    <title>Barista</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <style>
+
+header {
+    position: fixed; /* Keep it fixed at the top */
+    top: 0; /* Position it at the top */
+    left: 0;
+    right: 0;
+    bottom: 90%;
+    background: black;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    padding: 10px 7%; /* Adjusted padding for better spacing */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+header .navbar ul li a {
+    font-size: 15px;
+    padding: 5px;
+    color: white;
+    display: block;
+    text-decoration: none; /* Remove underline */
+}
+
+header .logo {
+    height: 150px; /* Set a fixed height for the logo */
+    width: 180px; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add some space to the right of the logo */
+    margin-bottom: 30px;
+    margin-top: 35px;
+}
+
+header .navbar ul {
+    list-style: none;
+    display: flex; /* Use flexbox for horizontal alignment */
+}
+
+header .navbar ul li {
+    margin: 0 10px; /* Add some margin between items */
+}
+
+header .navbar ul li a {
+    font-size: 15px;
+    padding: 5px;
+    color: white;
+    display: block;
+}
+
+header .navbar ul li a:hover {
+    background: rgb(212, 75, 6);
+    color: white;
+}
+
+        /* Existing styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Styles for cart icon and modal */
+        .cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content h2 {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        .modal-content p {
+            margin: 5px 0;
+        }
+        .checkout-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .rating i {
+            color: #4CAF50;
+            margin-right: 5px;
+        }
+        .rating span {
+            margin-right: 10px;
+        }
+        .details {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .details a {
+            color: #ff5722;
+            text-decoration: none;
+        }
+        .recommended {
+            margin-bottom: 20px;
+        }
+        .recommended h2 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+        .item:hover {
+            transform: scale(1.02);
+        }
+        .item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+        .item .info {
+            flex: 1;
+            margin-left: 10px;
+        }
+        .item .info h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+        }
+        .item .info p {
+            font-size: 14px;
+            color: #888;
+            margin: 5px 0;
+ }
+        .item .add {
+            text-align: center;
+        }
+        .item .add button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .item .add a {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+        .notification.show {
+            display: block;
+        }
+        
+
+.filter {
+    display: flex;
+    justify-content: left;
+    margin: 10px 0;
+}
+
+.filter button {
+    background-color: beige; /* Green background */
+    color: black; /* White text */
+    border: none; /* No border */
+    border-radius: 2px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better spacing */
+    margin: 0 5px; /* Margin between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.filter button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.filter button.active {
+    background-color: #357a38; /* Different color for active button */
+}
+
+.modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+    .cart-item {
+        border-bottom: 0px solid #ddd;
+        padding: 10px 0;
+    }
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+    .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .clear-cart {
+        background-color: whitesmoke;
+        color: black;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    .clear-cart:hover {
+        background-color: red;
+    }
+
+
+    .cart-actions {
+        display: flex;
+        align-items: left;
+        justify-content: left;
+        margin-top: 6px;
+    }
+
+    .cart-actions button {
+        width: 30px;
+        height: 30px;
+       
+        
+        cursor: pointer;
+        border-color: black;
+        border-width: 1px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: bottom;
+        font-size: 16px;
+    }
+
+    .cart-actions .decrease {
+        background-color: white; /* Red for decrease */
+        color: black;
+    }
+
+    .cart-actions .increase {
+        background-color: white; /* Green for increase */
+        color: black;
+    }
+
+    .cart-actions .delete {
+        background-color: white; /* Darker red for delete */
+        color: black;
+        width: 60px;
+    }
+
+    .cart-actions button:hover {
+        opacity: 0.8; /* Slightly transparent on hover */
+    }
+
+    .cart-actions .decrease:hover {
+        background-color: red; /* Darker red on hover */
+    }
+
+    .cart-actions .increase:hover {
+        background-color: #388e3c; /* Darker green on hover */
+    }
+
+    .cart-actions .delete:hover {
+        background-color: red; /* Darker red on hover */
+    }
+    .cart-icon {
+    position: fixed;
+    bottom: 30px;
+    right: 35px;
+    width: 60px; /* Fixed width */
+    height: 60px; /* Fixed height */
+    background-color: #4CAF50;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow: auto; /* Allow scrolling */
+}
+.cart-icon:hover {
+    background-color: #388e3c; /* Darker green on hover */
+}
+
+
+
+.image-slider {
+    position: relative;
+    max-width: 100%;
+    max-height: 60%;
+    margin: 20px 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    transition: opacity 0.5s ease;
+}
+
+.slide:not(.active) {
+    display: none; /* Hide non-active slides */
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+    </style>
+</head>
+<body>
+    <!-- _______________________________navigation bar________________ -->
+    <body class="">
+        <header>
+            <img src="tran.png" class="logo" alt="image" height="5%" width="20%"> 
+
+            <nav class="navbar">
+                <ul>
+                    <li><a href="">HOME</a></li>
+                    <li><a href="">ABOUT</a></li>
+                    <li><a href="">PAGES</a></li>
+                    <li><a href="">REVIEW</a></li>
+                    <li><a href="">GALLERY</a></li>
+                    <li><a href="">CONTACT</a></li>
+                </ul>
+            </nav>
+        </header>
+<br><br><br><br><br>
+        <!-- _____________________________navigation end____________________________ -->
+    <div class="container">
+        <div class="header">
+            <h1>Barista</h1>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <span>4.4 (3800 ratings)</span>
+                <span style="background-color: rgba(255, 123, 0, 0.982); border-radius: 35%; color: white;">• ₹500 for two</span>
+            </div>
+        </div>
+        
+        <div class="details">
+            <a href="#" style="font-size: larger;">Coffee Shop</a>
+            <p>Outlet: Prime Hub Rajpura</p>
+            <p>40-45 mins</p>
+        </div>
+<!-- --------------------------------------------------------------------------------------------> 
+<!-- Image Slider -->
+<div class="image-slider">
+    <div class="slides">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/33/Barista_%28company%29.svg/1200px-Barista_%28company%29.svg.png" alt="Image 1" class="slide active"/>
+        <img src="https://bestfranchiseconnect.com/wp-content/uploads/2024/07/Barista-Franchise-Cost-in-India.jpg" alt="Image 2" class="slide" />
+        <img src="https://www.barista.co.in/sites/default/files/2024-04/cafe%20image-2.webp" alt="Image 3" class="slide" />
+    </div>
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+</div>
+
+<!-- Filter Section -->
+
+
+
+
+
+
+
+<!-- ___________________________________________________________________________________________ -->
+<!-- ------------------------------------------------------------------------------/ -->
+        <!-- Filter Section -->
+<div class="filter">
+    <button onclick="filterItems('veg')">Beverages</button>
+    <button onclick="filterItems('non-veg')">Sandwiches</button>
+    <button onclick="filterItems('all')">All</button>
+</div>
+
+<div class="recommended">
+    <h2>Hot coffee(4)</h2>
+    <div class="item veg" data-type="veg">
+        <img alt="Cappuccino" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/FOOD_CATALOG/IMAGES/CMS/2024/3/11/b9f07203-a3e7-4616-8fab-a740893fcb3d_bccedb1d-679e-4ade-afb4-fa048c09c62c" width="100"/>
+        <div class="info">
+            <h3>Cappuccino</h3>
+            <p>Rich shot of espresso lies in wait under a smoothed and stretched layer of thick foam. Hot - large [300ml] - 129. 8 kcal / regular [250 ml] - 88. 5 kcal allergen - contains milk an average active adult requires 2000 kcal energy per day, however, calorie needs may vary.</p>
+            <p style="color: black;"><b>₹200</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Cappuccino', 200)">ADD</button>
+            <span id="quantity-Cappuccino">0</span>
+        </div>
+    </div>
+    <div class="item non-veg" data-type="veg">
+        <img alt="Cafe Mocha" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/e805dfdcd4f85733271e127d645118c7" width="100"/>
+        <div class="info">
+            <h3>Cafe Mocha</h3>
+            <p>A rich shot of espresso with chocolate sauce and steamed milk. Hot - large [350ml] - 289. 25 kcal / regular [250ml] - 242. 05 kcal. Allergen - contains milk an average active adult requires 2000 kcal energy per day, however, calorie</p>
+            <p style="color: black;"><b>₹240</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Cafe Mocha', 240)">ADD</button>
+            <span id="quantity-Cafe Mocha">0</span>
+        </div>
+    </div>
+
+    <div class="item non-veg" data-type="veg">
+        <img alt="Cafe latte" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/86f50c744c8201d1d962639b07022b36" width="100"/>
+        <div class="info">
+            <h3>Cafe latte</h3>
+            <p>Rich shot of espresso balanced with steamed milk and light layer of foam. Hot - large [350ml] - 147. 5 kcal / regular [250 ml] - 100. 3 kcal. Allergen - contains milk an average active adult requires 2000 kcal energy per day, however, calorie needs may vary.</p>
+            <p style="color: black;"><b>₹250</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Cafe latte', 250)">ADD</button>
+            <span id="quantity-Cafe latte">0</span>
+        </div>
+    </div>
+
+
+
+    <div class="item non-veg" data-type="veg">
+        <img alt="Cafe Americano - Sugar free" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/4b525ebe1827407a46e71c6f9562036e" width="100"/>
+        <div class="info">
+            <h3>Cafe Americano - Sugar free</h3>
+            <p>An authentic full bodied rich shot of espresso with hot water. Hot - large [350ml] - 0 kcal / regular [250 ml] - 0 kcal. An average active adult requires 2000 kcal energy per day, however, calorie needs may vary.</p>
+            <p style="color: black;"><b>₹195</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Cafe Americano - Sugar free', 250)">ADD</button>
+            <span id="quantity-Cafe Americano - Sugar free">0</span>
+        </div>
+    </div>
+    <!-- Add more items here with appropriate data-type -->
+</div>
+<!-- ------------------------------------------------------------------------------ -->
+        <div class="recommended">
+            <h2>Cold Coffees (8)</h2>
+            <div class="item veg" data-type="veg">
+                <img alt="Hazelnut Mocha Cold Coffee" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/ace330902a6e823f6a76ef53debbad80" width="100"/>
+                <div class="info">
+                    <h3>Hazelnut Mocha Cold Coffee</h3>
+                    <p></p>
+                    <p style="color: black;"><b>₹170</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Hazelnut Mocha Cold Coffee', 170)">ADD</button>
+                    <span id="quantity-Hazelnut Mocha Cold Coffee">0</span>
+                </div>
+            </div>
+            <div class="item veg" data-type="veg">
+                <img alt="Classic Cold Coffee" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/a238c93286e3c04a7f0a0c605b76c5e8" width="100"/>
+                <div class="info">
+                    <h3>Classic Cold Coffee</h3>
+                    <p>Cold coffee prepared with milk and ice cream. Small [315 ml] - 250. 4 kcal. Allergen - contains milk an average active adult requires 2000 kcal energy per day, however, calorie needs may vary.</p>
+                    <p style="color: black;"><b>₹170</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Classic Cold Coffee', 170)">ADD</button>
+                    <span id="quantity-Classic Cold Coffee">0</span>
+                </div>
+            </div>
+            <div class="item veg" data-type="veg">
+                <img alt="Ice Americano - Sugar Free" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/4166b03a041efeb704a4e83e481c6bc1" width="100"/>
+                <div class="info">
+                    <h3>Ice Americano - Sugar Free</h3>
+                    <p>A rich shot of espresso topped up with chilled water. Kcal -0. An average active adult requires 2000 kcal energy per day, however, calorie needs may vary.</p>
+                    <p style="color: black;"><b>₹170</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Ice Americano - Sugar Free', 170)">ADD</button>
+                    <span id="quantity-Ice Americano - Sugar Free">0</span>
+                </div>
+            </div>
+            <div class="item veg" data-type="veg">
+                <img alt="Apple Pie Frappe
+                " height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/79f7b782c341cda180b00de5e54933ea" width="100"/>
+                <div class="info">
+                    <h3>Apple Pie Frappe
+                    </h3>
+                    <p >Premium cold coffee prepared with flavors of irish, chocolate, milk and ice cream - small [315 ml] - 431. 97 kcal / regular [425 ml] - 550. 27 kcal. Allergen - contains milk an average active adult requires 2000 kcal energy per day, however, calorie needs may vary.</p>
+                    <p style="color: black;"><b>₹290</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Apple Pie Frappe', 290)">ADD</button>
+                    <span id="quantity-Apple Pie Frappe">0</span>
+                </div>
+            </div>
+           
+
+
+           
+
+<!-- ______________________________________________________ -->
+<div class="recommended">
+    <h2>Sandwiches (2)</h2>
+    <div class="item veg" data-type="non-veg">
+        <img alt="Spinach & Corn Sandwich" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/FOOD_CATALOG/IMAGES/CMS/2024/9/28/47e8ad14-afc0-4741-bbf7-1eec664f83f3_f695defd-674a-46d0-95ed-760b5cdb50ae.jpg" width="100"/>
+        <div class="info">
+            <h3>Spinach & Corn Sandwich</h3>
+            <p>Perfectly grilled sandwich, filled with juicy corns and spinach filling with mouth watering cheesy flavors.</p>
+            <p style="color: black;"><b>₹240</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Spinach & Corn Sandwich', 240)">ADD</button>
+            <span id="quantity-Spinach & Corn Sandwich">0</span>
+        </div>
+    </div>
+    <div class="item veg" data-type="non-veg">
+        <img alt="Paneer Tikka In A Curry Bread" height="100" src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/48c1ca2b9452c4d478b40b0bc74e4b6c" width="100"/>
+        <div class="info">
+            <h3>Paneer Tikka In A Curry Bread</h3>
+            <p>Perfectly grilled sandwich, filled with paneer tikka filling with mouth watering indian flavors. </p>
+            <p style="color: black;"><b>₹250</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Paneer Tikka In A Curry Bread', 250)">ADD</button>
+            <span id="quantity-Paneer Tikka In A Curry Bread">0</span>
+        </div>
+    </div>
+    
+    
+
+
+<!-- ___________________________________________________________________________________ -->
+
+
+            <!-- Add more items here -->
+        </div>
+
+        <!-- Cart Icon and Modal -->
+        <div class="cart-icon" onclick="openCart()">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <!-- Update the modal HTML -->
+<div class="modal" id="cart-modal">
+    <div class="modal-content">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <p id="total-price">Total: ₹0</p>
+        <button class="checkout-button" onclick="checkout()"> <a href="C:\Users\abc\Desktop\yumigo food\yumigo\checkout.html">Checkout</a></button>
+        <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
+        <button class="close-button" onclick="closeCart()">Close</button>
+    </div>
+</div>
+        <!-- Notification -->
+        <div class="notification" id="notification">
+            Item added to cart!
+        </div>
+
+    </div>
+
+    <script>
+        localStorage.clear()
+let currentSlide = 0;
+function changeSlide(direction) {
+    const slides = document.querySelectorAll('.slide');
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+
+// Optional: Auto slide every 3 seconds
+setInterval(() => {
+    changeSlide(1);
+}, 5000);
+// ------------------------------------------------
+function filterItems(type) {
+    const items = document.querySelectorAll('.recommended .item');
+    items.forEach(item => {
+        if (type === 'all') {
+            item.style.display = 'flex'; // Show all items
+        } else {
+            const isVeg = item.getAttribute('data-type') === type;
+            item.style.display = isVeg ? 'flex' : 'none'; // Show or hide based on type
+        }
+    });
+}
+
+// ----------------------------------------------------------------
+let cartItems = {};
+let totalPrice = 0;
+
+function addToCart(itemName, price) {
+    if (cartItems[itemName]) {
+        cartItems[itemName].quantity += 1; // Increase quantity if item already in cart
+    } else {
+        cartItems[itemName] = { price: price, quantity: 1 }; // Add new item to cart
+    }
+    totalPrice += price;
+    updateCart();
+    showNotification();
+
+    // Update the displayed quantity
+    document.getElementById(`quantity-${itemName}`).innerText = cartItems[itemName].quantity;
+}
+
+function updateCart() {
+    const cartItemsHTML = Object.keys(cartItems).map((item) =>
+        `
+                    <div class="cart-item">
+                        <p>${item} - ₹${cartItems[item].price} x ${cartItems[item].quantity}</p>
+                        <div class="cart-actions">
+                            <button class="decrease" onclick="decreaseQuantity('${item}')">-</button>
+                            <button class="increase" onclick="increaseQuantity('${item}')">+</button>
+                            <button class="delete" onclick="deleteItem('${item}')">Delete</button>
+                        </div>
+                    </div>
+                `
+    ).join('');
+    document.getElementById('cart-items').innerHTML = cartItemsHTML;
+    document.getElementById('total-price').innerHTML = `Total: ₹${totalPrice}`;
+}
+
+function openCart() {
+    document.getElementById('cart-modal').style.display = 'flex';
+}
+
+function closeCart() {
+    document.getElementById('cart-modal').style.display = 'none';
+}
+
+function checkout() {
+    // Redirect to checkout page
+
+    for (let key in cartItems) {
+        localStorage.setItem(key,(cartItems[key].price*cartItems[key].quantity))
+    }
+    // window.location.href = 'checkout.html';
+}
+
+function showNotification() {
+    const notification = document.getElementById('notification');
+    notification.classList.add('show');
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 2000);
+}
+
+function decreaseQuantity(itemName) {
+    if (cartItems[itemName].quantity > 1) {
+        cartItems[itemName].quantity -= 1;
+        totalPrice -= cartItems[itemName].price;
+        updateCart();
+    } else {
+        deleteItem(itemName);
+    }
+}
+
+function increaseQuantity(itemName) {
+    cartItems[itemName].quantity += 1;
+    totalPrice += cartItems[itemName].price;
+    updateCart();
+}
+
+function deleteItem(itemName) {
+    totalPrice -= cartItems[itemName].price * cartItems[itemName].quantity;
+    delete cartItems[itemName];
+    updateCart();
+}
+function clearCart() {
+    cartItems = {}; // Reset cart items
+    totalPrice = 0; // Reset total price
+    updateCart(); // Update the cart display
+}
+    </script>
+    
+</body>
+</html>

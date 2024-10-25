@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>checkout page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body class="bg-white h-screen">
+    <div id="root" class="bg-blue-100 rounded-lg p-5 w-5/6 m-auto mt-10  ">
+        <p class="text-center text-2xl">Checkout</p>
+        <div class="flex w-full">
+            <p class="ml-5 text-xl">Items</p>
+            <p class="ml-auto mr-5 text-xl">total</p>
+        </div>
+        <div id="items" class=" space-y-2">
+        </div>
+        <div id="total" class="flex bg-blue-500 rounded-xl p-2 mt-5">
+            <p class="text-2xl ">Total is</p>
+            <p id="amount" class="text-2xl ml-auto "></p>
+        </div>
+        <button onclick="window.open('barista.html')" class="bg-red-500 p-2 text-2xl rounded-xl mt-5 ml-auto mr-auto w-fit">Checkout</button>
+    </div>
+</body>
+<script>
+    let total=0;
+let items=[];
+for(let i=0;i<localStorage.length;i++){
+    console.log(localStorage.key(i),localStorage.getItem(localStorage.key(i)));
+    total+=parseInt(localStorage.getItem(localStorage.key(i)))
+    items.push(localStorage.key(i))
+}
+
+for(let j=0;j<localStorage.length;j++){
+    console.log("done");
+    document.getElementById("items").innerHTML+=`
+            <div class="flex text-xl bg-blue-300 rounded-xl p-2">
+                <p class="ml-5">${localStorage.key(j)}</p>
+                <p class=" ml-auto">${localStorage[localStorage.key(j)]}</p>
+            </div>`
+}
+document.getElementById("amount").innerText=total;
+</script>
+</html>

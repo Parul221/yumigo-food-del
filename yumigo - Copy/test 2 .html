@@ -1,0 +1,35 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>User Profile</h2>
+        <div id="profileDetails"></div>
+        <button onclick="goBack()">Go Back</button>
+    </div>
+    <script >window.onload = function() {
+        // Retrieve user details from local storage
+        const username = localStorage.getItem('username');
+        const age = localStorage.getItem('age');
+        const birthday = localStorage.getItem('birthday');
+        const Email = localStorage.getItem('Email');
+    
+        // Display the user details
+        document.getElementById('profileDetails').innerHTML = `
+            <p><strong>Username:</strong> ${username}</p>
+            <p><strong>Age:</strong> ${age}</p>
+            <p><strong>Birthday:</strong> ${birthday}</p>
+        `;
+    };
+    
+    // Function to go back to the login page
+    function goBack() {
+        window.location.href = 'index.html';
+    }</script>
+</body>
+</html> -->

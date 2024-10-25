@@ -1,0 +1,760 @@
+<html>
+<head>
+    <title>Dominos Pizza</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <style>
+
+header {
+    position: fixed; /* Keep it fixed at the top */
+    top: 0; /* Position it at the top */
+    left: 0;
+    right: 0;
+    bottom: 90%;
+    background: black;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    padding: 10px 7%; /* Adjusted padding for better spacing */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+header .navbar ul li a {
+    font-size: 15px;
+    padding: 5px;
+    color: white;
+    display: block;
+    text-decoration: none; /* Remove underline */
+}
+
+header .logo {
+    height: 150px; /* Set a fixed height for the logo */
+    width: 180px; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add some space to the right of the logo */
+    margin-bottom: 30px;
+    margin-top: 35px;
+}
+
+header .navbar ul {
+    list-style: none;
+    display: flex; /* Use flexbox for horizontal alignment */
+}
+
+header .navbar ul li {
+    margin: 0 10px; /* Add some margin between items */
+}
+
+header .navbar ul li a {
+    font-size: 15px;
+    padding: 5px;
+    color: white;
+    display: block;
+}
+
+header .navbar ul li a:hover {
+    background: rgb(212, 75, 6);
+    color: white;
+}
+
+        /* Existing styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Styles for cart icon and modal */
+        .cart-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content h2 {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        .modal-content p {
+            margin: 5px 0;
+        }
+        .checkout-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .rating i {
+            color: #4CAF50;
+            margin-right: 5px;
+        }
+        .rating span {
+            margin-right: 10px;
+        }
+        .details {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .details a {
+            color: #ff5722;
+            text-decoration: none;
+        }
+        .recommended {
+            margin-bottom: 20px;
+        }
+        .recommended h2 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+        .item:hover {
+            transform: scale(1.02);
+        }
+        .item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+        }
+        .item .info {
+            flex: 1;
+            margin-left: 10px;
+        }
+        .item .info h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 0;
+        }
+        .item .info p {
+            font-size: 14px;
+            color: #888;
+            margin: 5px 0;
+ }
+        .item .add {
+            text-align: center;
+        }
+        .item .add button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .item .add a {
+            display: block;
+            font-size: 12px;
+            color: #888;
+            text-decoration: none;
+            margin-top: 5px;
+        }
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+        .notification.show {
+            display: block;
+        }
+        /* .cart-actions {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.cart-actions button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.cart-actions .decrease {
+    background-color: #ff5722;
+    color: #fff;
+}
+
+.cart-actions .increase {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.cart-actions .delete {
+    background-color: #e74c3c;
+    color: #fff;
+}
+ */
+
+.filter {
+    display: flex;
+    justify-content: left;
+    margin: 10px 0;
+}
+
+.filter button {
+    background-color: beige; /* Green background */
+    color: black; /* White text */
+    border: none; /* No border */
+    border-radius: 2px; /* Rounded corners */
+    padding: 5px 10px; /* Padding for better spacing */
+    margin: 0 5px; /* Margin between buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.filter button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.filter button.active {
+    background-color: #357a38; /* Different color for active button */
+}
+
+.modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+    .cart-item {
+        border-bottom: 0px solid #ddd;
+        padding: 10px 0;
+    }
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+    .cart-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .clear-cart {
+        background-color: whitesmoke;
+        color: black;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    .clear-cart:hover {
+        background-color: red;
+    }
+
+
+    .cart-actions {
+        display: flex;
+        align-items: left;
+        justify-content: left;
+        margin-top: 6px;
+    }
+
+    .cart-actions button {
+        width: 30px;
+        height: 30px;
+       
+        
+        cursor: pointer;
+        border-color: black;
+        border-width: 1px;
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: bottom;
+        font-size: 16px;
+    }
+
+    .cart-actions .decrease {
+        background-color: white; /* Red for decrease */
+        color: black;
+    }
+
+    .cart-actions .increase {
+        background-color: white; /* Green for increase */
+        color: black;
+    }
+
+    .cart-actions .delete {
+        background-color: white; /* Darker red for delete */
+        color: black;
+        width: 60px;
+    }
+
+    .cart-actions button:hover {
+        opacity: 0.8; /* Slightly transparent on hover */
+    }
+
+    .cart-actions .decrease:hover {
+        background-color: red; /* Darker red on hover */
+    }
+
+    .cart-actions .increase:hover {
+        background-color: #388e3c; /* Darker green on hover */
+    }
+
+    .cart-actions .delete:hover {
+        background-color: red; /* Darker red on hover */
+    }
+    .cart-icon {
+    position: fixed;
+    bottom: 30px;
+    right: 35px;
+    width: 60px; /* Fixed width */
+    height: 60px; /* Fixed height */
+    background-color: #4CAF50;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow: auto; /* Allow scrolling */
+}
+.cart-icon:hover {
+    background-color: #388e3c; /* Darker green on hover */
+}
+
+
+
+.image-slider {
+    position: relative;
+    max-width: 100%;
+    max-height: 60%;
+    margin: 20px 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    transition: opacity 0.5s ease;
+}
+
+.slide:not(.active) {
+    display: none; /* Hide non-active slides */
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+    </style>
+</head>
+<body>
+    <!-- _______________________________navigation bar________________ -->
+    <body class="">
+        <header>
+            <img src="tran.png" class="logo" alt="image" height="5%" width="20%"> 
+
+            <nav class="navbar">
+                <ul>
+                    <li><a href="">HOME</a></li>
+                    <li><a href="">ABOUT</a></li>
+                    <li><a href="">PAGES</a></li>
+                    <li><a href="">REVIEW</a></li>
+                    <li><a href="">GALLERY</a></li>
+                    <li><a href="">CONTACT</a></li>
+                </ul>
+            </nav>
+        </header>
+<br><br><br><br><br>
+        <!-- _____________________________navigation end____________________________ -->
+    <div class="container">
+        <div class="header">
+            <h1>KFC</h1>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <span>4.3 (3000 ratings)</span>
+                <span style="background-color: rgba(255, 123, 0, 0.982); border-radius: 35%; color: white;">• ₹450 for two</span>
+            </div>
+        </div>
+        
+        <div class="details">
+            <a href="#" style="font-size: larger;">Restaurant</a>
+            <p>Outlet: Sector 10</p>
+            <p>35-40 mins</p>
+        </div>
+<!-- --------------------------------------------------------------------------------------------> 
+<!-- Image Slider -->
+<div class="image-slider">
+    <div class="slides">
+        <img src="https://cdn4.singleinterface.com/files/enterprise/coverphoto/34404/KFC-BAnner-20-02-24-05-04-08.jpg" alt="Image 1" class="slide active"/>
+        <img src="https://kfcprodimages-ehcsdud6a5a5eqcm.z01.azurefd.net/cmsimages/kfc/imagestemp/epicdeal_KSA_En_1707.jpg" alt="Image 2" class="slide" />
+        <img src="https://mma.prnewswire.com/media/2479621/Kentucky_Fried_Chicken_new_affordable_menu.jpg?p=facebook" alt="Image 3" class="slide" />
+    </div>
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+</div>
+
+<!-- Filter Section -->
+
+
+
+
+
+
+
+<!-- ___________________________________________________________________________________________ -->
+<!-- ------------------------------------------------------------------------------/ -->
+        <!-- Filter Section -->
+<div class="filter">
+    <button onclick="filterItems('veg')">Veg</button>
+    <button onclick="filterItems('non-veg')">Non-Veg</button>
+    <button onclick="filterItems('all')">All</button>
+</div>
+
+<div class="recommended">
+    <h2>Veg Burgers</h2>
+    <div class="item veg" data-type="veg">
+        <img alt="Indian Paneer Zinger Burger" height="100" src="https://orderserv-kfc-assets.yum.com/15895bb59f7b4bb588ee933f8cd5344a/images/items/xl/D-K912.jpg?ver=55.16" width="100"/>
+        <div class="info">
+            <h3>Indian Paneer Zinger Burger</h3>
+            <p>Relish the Indian paneer zinger</p>
+            <p style="color: black;"><b>₹210</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Indian Paneer Zinger Burger', 210)">ADD</button>
+            <span id="quantity-Indian Paneer Zinger Burger">0</span>
+        </div>
+    </div>
+    <div class="item non-veg" data-type="veg">
+        <img alt="Veg Zinger Burger- with Cheese" height="100" src="https://orderserv-kfc-assets.yum.com/15895bb59f7b4bb588ee933f8cd5344a/images/items/xl/D-K787.jpg?ver=55.16" width="100"/>
+        <div class="info">
+            <h3>Veg Zinger Burger- with Cheese</h3>
+            <p>Signature veg burger with crispy patties, cheese slice, veggies & a tangy sauce</p>
+            <p style="color: black;"><b>₹215</p></b>
+        </div>
+        <div class="add">
+            <button onclick="addToCart('Veg Zinger Burger- with Cheese', 215)">ADD</button>
+            <span id="quantity-Veg Zinger Burger- with Cheese">0</span>
+        </div>
+    </div>
+
+
+    <!-- Add more items here with appropriate data-type -->
+</div>
+<!-- ------------------------------------------------------------------------------ -->
+        <div class="recommended">
+            <h2>Non-Veg Burgers</h2>
+            <div class="item veg" data-type="non-veg">
+                <img alt="Margherita" height="100" src="https://orderserv-kfc-assets.yum.com/15895bb59f7b4bb588ee933f8cd5344a/images/items/xl/D-K540.jpg?ver=55.16" width="100"/>
+                <div class="info">
+                    <h3>Indian Tandoori Zinger Burger</h3>
+                    <p>Grab Tandoori Zinger Burger with Onions & Tangy sauce</p>
+                    <p style="color: black;"><b>₹208</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Indian Tandoori Zinger Burger', 208)">ADD</button>
+                    <span id="quantity-Indian Tandoori Zinger Burger">0</span>
+                </div>
+            </div>
+            <div class="item veg" data-type="non-veg">
+                <img alt="Farm House" height="100" src="https://orderserv-kfc-assets.yum.com/15895bb59f7b4bb588ee933f8cd5344a/images/items/xl/D-K439.jpg?ver=55.16" width="100"/>
+                <div class="info">
+                    <h3>American Classic Zinger</h3>
+                    <p>Relish the KFC Classic Zinger-lettuce, mayo & Zinger patty filled between</p>
+                    <p style="color: black;"><b>₹150</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('American Classic Zinger', 150)">ADD</button>
+                    <span id="quantity-American Classic Zinger">0</span>
+                </div>
+            </div>
+            <div class="item veg" data-type="non-veg">
+                <img alt="Mexican Zinger Pro Burger" height="100" src="https://orderserv-kfc-assets.yum.com/15895bb59f7b4bb588ee933f8cd5344a/images/items/xl/D-K696.jpg?ver=55.16" width="100"/>
+                <div class="info">
+                    <h3>Mexican Zinger Pro Burger</h3>
+                    <p>Premium burger with crunchy chicken, Mexican Habanero sauce, cheese, tomato & onion</p>
+                    <p style="color: black;"><b>₹200</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Mexican Zinger Pro Burger', 200)">ADD</button>
+                    <span id="quantity-Mexican Zinger Pro Burger">0</span>
+                </div>
+            </div>
+            <div class="item veg" data-type="non-veg">
+                <img alt="Mexican Zinger Pro Burger & Chicken Meal" height="100" src="https://orderserv-kfc-assets.yum.com/15895bb59f7b4bb588ee933f8cd5344a/images/items/xl/D-PR00002416.jpg?ver=55.16" width="100"/>
+                <div class="info">
+                    <h3>Mexican Zinger Pro Burger & Chicken Meal</h3>
+                    <p >New Zinger Pro burger with 1 Hot & Crispy chicken & Pepsi 475ml at a deal price</p>
+                    <p style="color: black;"><b>₹300</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Mexican Zinger Pro Burger & Chicken Meal', 300)">ADD</button>
+                    <span id="quantity-Mexican Zinger Pro Burger & Chicken Meal">0</span>
+                </div>
+            </div>
+            <div class="item veg" data-type="non-veg">
+                <img alt="Caribbean Spicy Zinger Burger & Chicken Meal" height="100" src="https://orderserv-kfc-assets.yum.com/15895bb59f7b4bb588ee933f8cd5344a/images/items/xl/D-PR00002413.jpg?ver=55.16" width="100"/>
+                <div class="info">
+                    <h3>Caribbean Spicy Zinger Burger & Chicken Meal</h3>
+                    <p>New Caribbean Spicy Zinger Burger with 1 Pc Hot & Crispy and Pepsi PET 475ml at a deal price</p>
+                    <p  style="color: black;"><b>₹370</p></b>
+                </div>
+                <div class="add">
+                    <button onclick="addToCart('Caribbean Spicy Zinger Burger & Chicken Meal', 370)">ADD</button>
+                    <span id="quantity-Caribbean Spicy Zinger Burger & Chicken Meal">0</span>
+                </div>
+            </div>
+
+           
+
+
+           
+
+<!-- ______________________________________________________ -->
+
+
+
+<!-- ___________________________________________________________________________________ -->
+
+
+            <!-- Add more items here -->
+        
+
+        <!-- Cart Icon and Modal -->
+        <div class="cart-icon" onclick="openCart()">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+        <!-- Update the modal HTML -->
+<div class="modal" id="cart-modal">
+    <div class="modal-content">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <p id="total-price">Total: ₹0</p>
+        <button class="checkout-button" onclick="checkout()">Checkout</button>
+        <button class="clear-cart" onclick="clearCart()">Clear Cart</button>
+        <button class="close-button" onclick="closeCart()">Close</button>
+    </div>
+</div>
+        <!-- Notification -->
+        <div class="notification" id="notification">
+            Item added to cart!
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlide = 0;
+
+function changeSlide(direction) {
+    const slides = document.querySelectorAll('.slide');
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + direction + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+
+// Optional: Auto slide every 3 seconds
+setInterval(() => {
+    changeSlide(1);
+}, 5000);
+        // ------------------------------------------------
+        function filterItems(type) {
+    const items = document.querySelectorAll('.recommended .item');
+    items.forEach(item => {
+        if (type === 'all') {
+            item.style.display = 'flex'; // Show all items
+        } else {
+            const isVeg = item.getAttribute('data-type') === type;
+            item.style.display = isVeg ? 'flex' : 'none'; // Show or hide based on type
+        }
+    });
+}
+
+// ----------------------------------------------------------------
+        let cartItems = {};
+        let totalPrice = 0;
+    
+        function addToCart(itemName, price) {
+            if (cartItems[itemName]) {
+                cartItems[itemName].quantity += 1; // Increase quantity if item already in cart
+            } else {
+                cartItems[itemName] = { price: price, quantity: 1 }; // Add new item to cart
+            }
+            totalPrice += price;
+            updateCart();
+            showNotification();
+    
+            // Update the displayed quantity
+            document.getElementById(`quantity-${itemName}`).innerText = cartItems[itemName].quantity;
+        }
+    
+        function updateCart() {
+            const cartItemsHTML = Object.keys(cartItems).map((item) =>
+                `
+                    <div class="cart-item">
+                        <p>${item} - ₹${cartItems[item].price} x ${cartItems[item].quantity}</p>
+                        <div class="cart-actions">
+                            <button class="decrease" onclick="decreaseQuantity('${item}')">-</button>
+                            <button class="increase" onclick="increaseQuantity('${item}')">+</button>
+                            <button class="delete" onclick="deleteItem('${item}')">Delete</button>
+                        </div>
+                    </div>
+                `
+            ).join('');
+            document.getElementById('cart-items').innerHTML = cartItemsHTML;
+            document.getElementById('total-price').innerHTML = `Total: ₹${totalPrice}`;
+        }
+    
+        function openCart() {
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+    
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+    
+        function checkout() {
+            // Redirect to checkout page
+            window.location.href = 'checkout.html';
+        }
+    
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+    
+        function decreaseQuantity(itemName) {
+            if (cartItems[itemName].quantity > 1) {
+                cartItems[itemName].quantity -= 1;
+                totalPrice -= cartItems[itemName].price;
+                updateCart();
+            } else {
+                deleteItem(itemName);
+            }
+        }
+    
+        function increaseQuantity(itemName) {
+            cartItems[itemName].quantity += 1;
+            totalPrice += cartItems[itemName].price;
+            updateCart();
+        }
+    
+        function deleteItem(itemName) {
+            totalPrice -= cartItems[itemName].price * cartItems[itemName].quantity;
+            delete cartItems[itemName];
+            updateCart();
+        }
+        function clearCart() {
+        cartItems = {}; // Reset cart items
+        totalPrice = 0; // Reset total price
+        updateCart(); // Update the cart display
+    }
+    </script>
+    
+</body>
+</html>
