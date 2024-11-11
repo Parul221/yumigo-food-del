@@ -129,7 +129,7 @@ margin-left:60px;}
                 width:220px;
                 height:220px;
                 transition-speed:1s;
-                border:8px solid rgb(78, 136, 152) 41, 128);}
+                border:8px solid (rgb(78, 136, 152) 41, 128);}
 
                 .box1{
                     border-radius:50px;
@@ -146,7 +146,7 @@ margin-left:60px;}
                         width:220px;
                         height:280px;
                         transition-speed:1s;
-                        border:8px solid rgb(78, 136, 152) 41, 128);}
+                        border:8px solid (rgb(78, 136, 152) 41, 128);}
         
             .container .box .image
 {
@@ -255,7 +255,7 @@ header .navbar ul li a:hover {
 .item img:hover{
     border-radius:120px;
     transform: scale(1.3);
-    border:8px solid rgb(78, 136, 152) 41, 128);}
+    border:8px solid (rgb(78, 136, 152) 41, 128);}
 
 .text {
     position: absolute;
